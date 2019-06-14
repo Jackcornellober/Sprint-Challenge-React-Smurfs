@@ -4,6 +4,13 @@ import './App.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  withRouter
+} from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -21,10 +28,10 @@ class App extends Component {
 
   addSmurf = (newSmurf) => {
     console.log(newSmurf);
-    axios.post('http://localhost:3333/Smurfs', {
+    axios.post('http://localhost:3333/smurfs', {
       name: newSmurf.name,
       age: newSmurf.age,
-      email: newSmurf.email,
+      height: newSmurf.height,
     })
     .then((res) => {
       this.setState({smurfs: res.data});
@@ -41,8 +48,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SmurfForm />
-        <Smurfs smurfs={this.state.smurfs} />
+        <Router >
+          <div>
+            <nav>
+              <NavLink className = 'navlink' exact to="/">
+                Smurf List
+              </NavLink>
+              <NavLink className = 'navlink' exact to="/form">
+                Add Smurfs
+              </NavLink>
+            </nav>
+            <Route path = '/form' render = {props => (<SmurfForm {...props} addSmurf = {this.addSmurf}/>)} />
+            <Route exact path = '/' render = {props => (<Smurfs {...props} smurfs = {this.state.smurfs}/>)} />
+          </div>
+        </Router>
       </div>
     );
   }
