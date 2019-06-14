@@ -3,7 +3,9 @@
 }
 
 .Smurfs {
-  border: 2rem solid #88ccff;
+  border: 1.5rem solid #88ccff;
+  width: 23rem;
+  margin: 0 auto;
 }
 
 .smurf {
@@ -18,7 +20,10 @@
 h1 {
   text-align: center;
   color: #88ccff;
-  margin-left: 2rem;
+}
+
+ul {
+  padding: 0;
 }
 
 .navlink {
